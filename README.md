@@ -1,22 +1,50 @@
-# News Aggregator Skill
+# 🗞️ News Aggregator Skill
 
-全网科技/金融新闻聚合助手，支持AI 智能解读。
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/cclank/news-aggregator-skill.svg?style=social&label=Star)](https://github.com/cclank/news-aggregator-skill)
+[![GitHub forks](https://img.shields.io/github/forks/cclank/news-aggregator-skill.svg?style=social&label=Fork)](https://github.com/cclank/news-aggregator-skill/network)
 
-## ✨ 功能特性
+**全网科技/金融/AI深度新闻聚合助手，专为智能 Agent 打造的高效信息引擎。**
 
-- **多源聚合**：一站式覆盖硅谷科技、中国创投、开源社区及金融市场。
-- **深度阅读**：支持 Deep Fetch 模式，自动获取正文并进行 AI 深度分析。
-- **智能周报**：自动生成杂志级排版的中文日报/周报。
-- **交互菜单**：可通过"news-aggregator-skill 如意如意"唤醒交互式菜单，指哪打哪。
+---
 
-## 📚 聚合信源
+## ✨ 核心特性
 
-覆盖全球 8 大主流高价值信息渠道：
+- **🌍 全网多源聚合**：一站式覆盖跨越硅谷科技、中国创投、开源社区、金融市场以及顶级 AI 播客/硬核推文的 28+ 个高价值信源。
+- **🚀 完美支持 OpenClaw**：专为原生大模型 Agent 平台（如 OpenClaw、Code Agent）深度定制，即插即用，沉浸式体验信息流。
+- **🆓 开箱即用 (Zero-Config)**：纯净抓取，**无需配置任何第三方 API Key**，告别繁琐的环境变量和额度焦虑。
+- **🧠 AI 智能深度阅读 (Deep Fetch)**：智能穿透防爬虫机制（内置 Playwright 绕过 Cloudflare），抓取完整正文内容交给大模型过滤、提炼与总结。
+- **📰 场景化早报 (Daily Briefings)**：内置多套场景预设（综合早报、财经早报、科技早报、吃瓜早报、AI深度日报），一键生成杂志级排版的 Markdown 中文报告。
+- **🪄 魔法交互菜单**：支持通过专属口令唤醒全局交互式菜单，告别繁琐长难句，只需输入序号即可指哪打哪。
 
-- **全球科技**：Hacker News, Product Hunt
-- **开源社区**：GitHub Trending, V2EX
-- **中国创投**：36Kr, 腾讯新闻科技频道
-- **社会/金融**：微博热搜, 华尔街见闻
+---
+
+## 📚 聚合信源图谱
+
+系统现已覆盖全球 **28** 个主流高价值信息渠道，随取随用：
+
+### 🎯 核心新闻源
+- **全球科技**：🦄 Hacker News (`hackernews`), 🐱 Product Hunt (`producthunt`)
+- **开源进展**：🐙 GitHub Trending (`github`), 🤓 V2EX (`v2ex`)
+- **国内风控**：🚀 36Kr (`36kr`), 🐧 腾讯科技 (`tencent`)
+- **社会金融**：🔴 微博热搜 (`weibo`), 📈 华尔街见闻 (`wallstreetcn`)
+- **AI 论文**：🤗 Hugging Face Papers (`huggingface`)
+
+### 📧 AI 行业内参 (Newsletters & Creators)
+- **🧪 Latent Space AINews** (`latentspace_ainews`) - *（近期新增）*
+- **ChinAI (Jeffrey Ding)** (`chinai`)
+- **Memia (Ben Reid)** (`memia`)
+- **Ben's Bites** (`bensbites`)
+- **One Useful Thing (Ethan Mollick)** (`oneusefulthing`)
+- **Interconnects (Nathan Lambert)** (`interconnects`)
+- **AI to ROI & KDnuggets** 等...
+
+### ✍️ 深度思考 & 播客
+- **行业泰斗专栏**: Paul Graham, James Clear, Wait But Why, Scott Young...
+- **顶级硬核播客**: Lex Fridman Podcast, Latent Space (swyx), 80,000 Hours...
+
+---
 
 ## 📥 安装指南
 
@@ -25,89 +53,61 @@
 选择以下任一方式将 Skill 添加到您的 Agent：
 
 #### 方法 A：使用 Openskills CLI (推荐)
-
 会自动处理路径依赖和配置同步。
-
 ```bash
-# 克隆仓库
-git clone git@github.com:cclank/news-aggregator-skill.git
-
 # 安装 skill
-openskills install ./news-aggregator-skill
+openskills install git@github.com:cclank/news-aggregator-skill.git
 
 # 同步配置到 Agent
 openskills sync
 ```
 
-#### 方法 B：使用 NPX (推荐 2)
-
+#### 方法 B：使用 NPX
 直接从远程仓库添加。
-
 ```bash
 npx skills add https://github.com/cclank/news-aggregator-skill
 ```
 
-#### 方法 C：Claude 标准安装 (手动)
-
-手动将 Skill 集成到 Claude 项目的标准方式。
-
+#### 方法 C：手动集成
 ```bash
-# 1. 克隆仓库
-git clone git@github.com:cclank/news-aggregator-skill.git
-
-# 2. 定位或创建项目的 skills 目录
-mkdir -p YourProject/.claude/skills
-
-# 3. 将整个文件夹复制过去
-cp -r news-aggregator-skill YourProject/.claude/skills/
-
-# 4. 验证：确保 SKILL.md 存在于目标目录
-ls YourProject/.claude/skills/news-aggregator-skill/SKILL.md
+git clone git@github.com:cclank/news-aggregator-skill.git YourProject/.claude/skills/news-aggregator-skill
 ```
 
-### 第二步：安装 Python 依赖（如果你的agent足够聪明，可以跳过）
-
-进入已安装的 Skill 目录，执行依赖安装：
-
+### 第二步：安装 Python 依赖
+进入已安装的 Skill 目录，执行依赖安装（如果您的 Agent 足够聪明，可要求其自动配置）：
 ```bash
-# 进入 Skill 安装目录 (根据您选择的安装方式调整路径)
-cd ~/.claude/skills/news-aggregator-skill  # 或 YourProject/.claude/skills/news-aggregator-skill
-
-# 安装依赖
+cd YourProject/.claude/skills/news-aggregator-skill
 pip install -r requirements.txt
+playwright install chromium
 ```
+
+---
 
 ## 🚀 如何使用
 
 ### 1. 🔮 唤醒交互菜单 (推荐)
 
-最简单的使用方式，来自岚叔的彩蛋--直接召唤智能菜单：
+最简单、最迷人的使用方式，来自专属交互彩蛋，直接召唤智能指令菜单：
 
 > **"news-aggregator-skill 如意如意"**
 
-系统将为您展示功能列表（如：早安日报、硅谷热点、全网扫描等），回复数字即可执行。
+系统将立即为您展示多达 35 个功能选项的精美列表，直接回复数字序号即可生成完美排版的今日大盘！
 
 ### 2. 🗣️ 自然语言触发
 
-您也可以直接说出您的需求：
+您也可以直接通过对话指定需求：
 
-- **看热点**："帮我看看 Hacker News 和 Product Hunt 最近有什么 AI 新闻？"
-- **看国内**："36氪和腾讯新闻今天有什么科技大瓜？"
-- **看开源**："GitHub 上最近火的项目是啥？"
-- **全网扫**："全网扫描一下关于 Agent 和 LLM 的最新进展。"
+- **场景日报**："帮我跑一份 💰财经早报，看看今天华市有什么动静。"
+- **深度穿透**："抓取 5 条最新的 GitHub 趋势，记得开启 Deep Fetch 深入阅读下他们的 README。"
+- **硬核科研**："看看今天 HuggingFace 有什么新发的神仙论文？"
+- **自由组合**："帮我把 Hacker News, 华尔街见闻 和 微博热搜 今天的前十条揉在一起生成一个早报。"
 
-> ⚠️ **全网扫描注意**: Global Scan 是基于各平台"热榜"进行关键词过滤，而非全文检索。如果关键词（如 Agent）在当天的全网热榜中未出现，可能返回较少结果。
+---
 
-## 📊 支持源列表
+## 💡 开发与扩展
 
-| Source Name | ID | Category |
-|-------------|----|----------|
-| **Hacker News** | `hackernews` | Global Tech |
-| **GitHub Trending** | `github` | Open Source |
-| **Product Hunt** | `producthunt` | New Products |
-| **36Kr** | `36kr` | China VC |
-| **Tencent News** | `tencent` | General Tech |
-| **Weibo** | `weibo` | Social Trends |
-| **WallStreetCN** | `wallstreetcn` | Finance |
-| **V2EX** | `v2ex` | Dev Community |
+欢迎提交 PR 为框架接入新的全球优质信源。我们期望共建一个**最纯净、最高效、抗干扰**的防降智信息获取舱。
+
+📝 **License**: MIT License
+
 
