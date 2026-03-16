@@ -3,9 +3,10 @@ import concurrent.futures
 import sys
 import os
 from fetch_news import (
-    fetch_hackernews, fetch_github, fetch_producthunt, 
+    fetch_hackernews, fetch_github, fetch_producthunt,
     fetch_weibo, fetch_36kr, fetch_tencent, fetch_v2ex, fetch_wallstreetcn,
     fetch_huggingface_papers, fetch_ai_newsletters, fetch_podcasts, fetch_essays,
+    fetch_intl_politics, fetch_intl_finance,
     enrich_items_with_content
 )
 
@@ -119,7 +120,33 @@ PROFILES = {
         }
     },
 
-    # 7. Reading List (Podcasts & Essays)
+    # 7. International Politics
+    "intl_politics": {
+        "world_news": {
+            "sources": [(fetch_intl_politics, 50, None)],
+            "enrich": True
+        },
+        "hn_politics": {
+            "sources": [(fetch_hackernews, 10, "war,politics,sanctions,diplomacy,geopolitics")],
+            "enrich": True
+        }
+    },
+
+    # 8. International Finance
+    "intl_finance": {
+        "global_markets": {
+            "sources": [(fetch_intl_finance, 50, None)],
+            "enrich": True
+        },
+        "cn_finance": {
+            "sources": [
+                (fetch_wallstreetcn, 15, None),
+            ],
+            "enrich": True
+        }
+    },
+
+    # 9. Reading List (Podcasts & Essays)
     "reading_list": {
         "essays": {
             "sources": [(fetch_essays, 50, None)], # Capture all

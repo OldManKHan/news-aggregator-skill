@@ -67,6 +67,34 @@
 
 ---
 
+### 🌍 国际时政
+
+| # | 名称 | 命令 |
+|---|---|---|
+| 36 | BBC World | `--source bbcworld` |
+| 37 | The Guardian World | `--source theguardianworld` |
+| 38 | Al Jazeera | `--source aljazeera` |
+| 39 | DW News (德国之声) | `--source dwnews` |
+| 40 | France24 | `--source france24` |
+| 41 | NHK World | `--source nhkworld` |
+| 42 | 🌐 全部国际时政聚合 | `--source intl_politics --limit 5` |
+
+---
+
+### 💹 国际金融
+
+| # | 名称 | 命令 |
+|---|---|---|
+| 43 | CNBC World | `--source cnbcworld` |
+| 44 | MarketWatch | `--source marketwatch` |
+| 45 | Seeking Alpha | `--source seekingalpha` |
+| 46 | FT Markets | `--source ftmarkets` |
+| 47 | Bloomberg Markets | `--source bloombergmarkets` |
+| 48 | Economist Finance | `--source economistfinance` |
+| 49 | 💰 全部国际金融聚合 | `--source intl_finance --limit 5` |
+
+---
+
 ### 🔀 自由组合
 
 直接指定多个源，用逗号分隔：
@@ -79,4 +107,4 @@ hackernews,github,wallstreetcn
 
 ---
 
-**✨ 请输入序号 (1-35) 或源名组合来执行**
+**✨ 请输入序号 (1-49) 或源名组合来执行**

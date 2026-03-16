@@ -1,11 +1,11 @@
 ---
 name: news-aggregator-skill
-description: "Comprehensive news aggregator that fetches, filters, and deeply analyzes real-time content from 28 sources including Hacker News, GitHub, Hugging Face Papers, AI Newsletters, WallStreetCN, Weibo, and Podcasts. Use when user requests 'daily scans', 'tech news', 'finance updates', 'AI briefings', 'deep analysis', or says '如意如意' to open the interactive menu."
+description: "Comprehensive news aggregator that fetches, filters, and deeply analyzes real-time content from 40+ sources including Hacker News, GitHub, Hugging Face Papers, AI Newsletters, WallStreetCN, Weibo, and Podcasts. Use when user requests 'daily scans', 'tech news', 'finance updates', 'AI briefings', 'deep analysis', or says '如意如意' to open the interactive menu."
 ---
 
 # News Aggregator Skill
 
-Fetch real-time hot news from 28 sources, generate deep analysis reports in Chinese.
+Fetch real-time hot news from 40+ sources, generate deep analysis reports in Chinese.
 
 ---
 
@@ -106,6 +106,20 @@ Only the **differences** from the universal template:
 | | `farnamstreet` | Farnam Street |
 | | `scottyoung` | Scott Young |
 | | `dankoe` | Dan Koe |
+| **Intl Politics** | `intl_politics` | All Intl Politics (aggregate) |
+| | `bbcworld` | BBC World |
+| | `theguardianworld` | The Guardian World |
+| | `aljazeera` | Al Jazeera |
+| | `dwnews` | DW News (Deutsche Welle) |
+| | `france24` | France24 |
+| | `nhkworld` | NHK World |
+| **Intl Finance** | `intl_finance` | All Intl Finance (aggregate) |
+| | `cnbcworld` | CNBC World |
+| | `marketwatch` | MarketWatch |
+| | `seekingalpha` | Seeking Alpha |
+| | `ftmarkets` | FT Markets |
+| | `bloombergmarkets` | Bloomberg Markets |
+| | `economistfinance` | Economist Finance |
 
 ### daily_briefing.py (Morning Routines)
 
@@ -123,6 +137,8 @@ python3 scripts/daily_briefing.py --profile <profile>
 | `social` | Weibo, V2EX, Tencent | `instructions/briefing_social.md` |
 | `ai_daily` | HF Papers, AI Newsletters | `instructions/briefing_ai_daily.md` |
 | `reading_list` | Essays, Podcasts | (Use universal template) |
+| `intl_politics` | BBC, Guardian, Al Jazeera, DW, France24, NHK | `instructions/briefing_intl_politics.md` |
+| `intl_finance` | CNBC, MarketWatch, Seeking Alpha, FT, Bloomberg, Economist | `instructions/briefing_intl_finance.md` |
 
 **Workflow**: Execute script → Read corresponding instruction file → Generate report following both the instruction file AND the universal template.
 
