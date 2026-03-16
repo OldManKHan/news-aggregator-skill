@@ -559,9 +559,32 @@ ESSAY_SOURCES = [
     ("Wait But Why", "https://waitbutwhy.com/feed"),
     ("James Clear", "https://jamesclear.com/feed"),
     ("Farnam Street", "https://fs.blog/feed"),
-    ("Paul Graham", "http://www.aaronsw.com/2002/feeds/pgessays.rss"), 
+    ("Paul Graham", "http://www.aaronsw.com/2002/feeds/pgessays.rss"),
     ("Scott Young", "https://www.scotthyoung.com/blog/feed/"),
     ("Dan Koe", "https://thedankoe.com/feed/"),
+]
+
+# --- International Politics Sources (RSS) ---
+INTL_POLITICS_SOURCES = [
+    ("BBC World", "https://feeds.bbci.co.uk/news/world/rss.xml"),
+    ("The Guardian World", "https://www.theguardian.com/world/rss"),
+    ("Al Jazeera", "https://www.aljazeera.com/xml/rss/all.xml"),
+    ("DW News", "https://rss.dw.com/rdf/rss-en-all"),
+    ("France24", "https://www.france24.com/en/rss"),
+    ("NHK World", "https://www3.nhk.or.jp/rss/news/cat0.xml"),
+    # Reuters: feeds.reuters.com is dead (SSL error)
+    # AP News: rsshub.app route returns 403
+    # Nikkei Asia: /rss endpoint returns 404
+]
+
+# --- International Finance Sources (RSS) ---
+INTL_FINANCE_SOURCES = [
+    ("CNBC World", "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362"),
+    ("MarketWatch", "https://feeds.content.dowjones.io/public/rss/mw_topstories"),
+    ("Seeking Alpha", "https://seekingalpha.com/market_currents.xml"),
+    ("FT Markets", "https://www.ft.com/markets?format=rss"),
+    ("Bloomberg Markets", "https://feeds.bloomberg.com/markets/news.rss"),
+    ("Economist Finance", "https://www.economist.com/finance-and-economics/rss.xml"),
 ]
 
 def fetch_ai_newsletters(limit=5, keyword=None):
@@ -585,6 +608,24 @@ def fetch_essays(limit=5, keyword=None):
     all_items = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         futures = {executor.submit(fetch_rss_feed, url, name, 3): name for name, url in ESSAY_SOURCES}
+        for future in concurrent.futures.as_completed(futures):
+            all_items.extend(future.result())
+    return filter_items(all_items, keyword)[:limit]
+
+def fetch_intl_politics(limit=5, keyword=None):
+    """Aggregate Fetcher for International Politics Sources"""
+    all_items = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(fetch_rss_feed, url, name, 3): name for name, url in INTL_POLITICS_SOURCES}
+        for future in concurrent.futures.as_completed(futures):
+            all_items.extend(future.result())
+    return filter_items(all_items, keyword)[:limit]
+
+def fetch_intl_finance(limit=5, keyword=None):
+    """Aggregate Fetcher for International Finance Sources"""
+    all_items = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(fetch_rss_feed, url, name, 3): name for name, url in INTL_FINANCE_SOURCES}
         for future in concurrent.futures.as_completed(futures):
             all_items.extend(future.result())
     return filter_items(all_items, keyword)[:limit]
@@ -625,6 +666,8 @@ def main():
         'essays': fetch_essays,
         # Standalone AI Sources
         'latentspace_ainews': fetch_latentspace_ainews,
+        # International
+        'intl_politics': fetch_intl_politics, 'intl_finance': fetch_intl_finance,
     }
 
     # Dynamic Registration of Sub-sources
@@ -646,7 +689,17 @@ def main():
     for name, url in ESSAY_SOURCES:
         key = name.lower().replace(' ', '')
         sources_map[key] = create_single_rss_fetcher(url, name)
-    
+
+    # International Politics
+    for name, url in INTL_POLITICS_SOURCES:
+        key = name.lower().replace(' ', '')
+        sources_map[key] = create_single_rss_fetcher(url, name)
+
+    # International Finance
+    for name, url in INTL_FINANCE_SOURCES:
+        key = name.lower().replace(' ', '')
+        sources_map[key] = create_single_rss_fetcher(url, name)
+
     parser.add_argument('--source', default='all', help='Source(s) to fetch from (comma-separated). Now supports sub-sources like "chinai", "paulgraham"')
     parser.add_argument('--limit', type=int, default=10, help='Limit per source. Default 10')
     parser.add_argument('--keyword', help='Comma-sep keyword filter')
